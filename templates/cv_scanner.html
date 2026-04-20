@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ATS Scanner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .upload-zone {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 48px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+            min-width: 500px;
+        }
+        
+        .upload-zone:hover {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+        
+        .upload-zone.drag-over {
+            border-color: #3b82f6;
+            background-color: #dbeafe;
+        }
+        
+        .upload-zone svg {
+            width: 64px;
+            height: 64px;
+            color: #94a3b8;
+            margin: 0 auto 16px;
+        }
+        
+        .upload-zone span {
+            white-space: nowrap;
+            display: inline-block;
+        }
+        
+        .textarea-field {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .textarea-field:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .padding-bottom {
+            padding-bottom: 50px;
+        }
+        #cv {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="p-10 bg-gray-50"></body>
+
+<div class="bg-white rounded-xl shadow">
+    <!-- HEADER -->
+    <div class="bg-white p-8 rounded-xl flex items-center gap-6 mx-auto max-w-5xl justify-center">
+        <img src="{{ url_for('static', filename='images/evaluation.png') }}" alt="Resume Check Icon" class="w-20 h-20 rounded-xl">
+
+
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900">Optimize your resume to get more interviews</h1>
+            <p class="text-gray-600 text-base mt-1">Optimize your resume and discover your perfect career match with AI-driven insights.</p>
+            <div class="flex gap-3 mt-4">
+                <span class="source-badge">AI Powered</span>
+                <span class="source-badge">Resume Analyzer</span>
+                <span class="source-badge">ATS Score Generator</span>
+                <span class="source-badge">Missing Keywords Detector</span>
+                <span class="source-badge">Improvement Suggestions</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOW IT WORKS SECTION -->
+    <h2 class="text-4xl font-bold text-center text-gray-900 mb-16">Here's how it works</h2>
+
+    <div class="flex items-center justify-between max-w-5xl mx-auto">
+        
+        <!-- Step 1 -->
+        <div class="flex flex-col items-center text-center flex-1">
+            <div class="w-20 h-20 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3v-6"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Step 1</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">Import your resume</p>
+        </div>
+
+        <!-- Dashed Line 1 -->
+        <div class="flex-1 flex justify-center mb-12">
+            <div class="border-t-2 border-dashed border-gray-400 w-full"></div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flex flex-col items-center text-center flex-1">
+            <div class="w-20 h-20 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                <svg class="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Step 2</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">Get feedback on what looks good and what to improve</p>
+        </div>
+
+        <!-- Dashed Line 2 -->
+        <div class="flex-1 flex justify-center mb-12">
+            <div class="border-t-2 border-dashed border-gray-400 w-full"></div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flex flex-col items-center text-center flex-1">
+            <div class="w-20 h-20 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+                <svg class="w-10 h-10 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Step 3</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">Build a stronger resume with the help of AI-driven insights</p>
+        </div>
+
+    </div>
+
+    <div class="flex justify-center mt-12 padding-bottom">
+        <!-- <button onclick="document.getElementById('cv').click()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full text-lg transition-colors">
+            Import my resume
+        </button> -->
+        <button onclick="document.getElementById('scanner-section').scrollIntoView({ behavior: 'smooth' })" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-full text-lg transition-colors"> Import my resume
+        </button>
+
+    </div>
+
+</div>
+
+<!-- FORM -->
+<div class="mt-12 bg-white p-8 rounded-xl shadow">
+
+    <h2 class="text-2xl font-bold text-gray-900 mb-8">Analyze Your Resume</h2>
+
+    <!-- File Upload Section -->
+    <div class="mb-8" id="scanner-section">
+        <label class="block text-sm font-semibold text-gray-900 mb-3">Upload Resume</label>
+        <div class="upload-zone" id="uploadZone">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            <p class="text-gray-700 mb-1"><span class="font-semibold">Drag & Drop or </span> <span class="text-blue-600 font-semibold cursor-pointer">Choose file</span> <span class="font-semibold">to upload</span></p>
+            <p class="text-gray-500 text-sm">as .pdf or .docx file</p>
+            <p id="fileName" class="text-gray-600 text-sm font-medium mt-2"></p>
+        </div>
+        <input type="file" id="cv" accept=".pdf,.docx,.doc">
+    </div>
+
+    <!-- Textarea Section -->
+    <div class="mb-8">
+        <label class="block text-sm font-semibold text-gray-900 mb-3">Job Description</label>
+        <textarea id="job_desc"
+            placeholder="Paste job description here..."
+            class="textarea-field w-full" rows="8"></textarea>
+    </div>
+
+    <button onclick="analyzeCV()"
+        class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 py-3 rounded-lg text-base transition-colors">
+        Analyze Resume
+    </button>
+
+</div>
+
+<!-- METRICS -->
+<div id="metrics" class="grid grid-cols-4 gap-6 mt-12 hidden">
+
+    <div class="p-6 bg-white rounded-xl shadow border-t-4 border-green-500 text-center">
+        <p class="text-gray-500 text-sm font-semibold">ATS SCORE</p>
+        <h2 id="atsScore" class="text-4xl font-bold text-gray-900 mt-2"></h2>
+    </div>
+
+    <div class="p-6 bg-white rounded-xl shadow border-t-4 border-blue-500 text-center">
+        <p class="text-gray-500 text-sm font-semibold">MATCH SCORE</p>
+        <h2 id="matchScore" class="text-4xl font-bold text-gray-900 mt-2"></h2>
+    </div>
+
+    <div class="p-6 bg-white rounded-xl shadow border-t-4 border-orange-500 text-center">
+        <p class="text-gray-500 text-sm font-semibold">MISSING KEYWORDS</p>
+        <h2 id="missingCount" class="text-4xl font-bold text-gray-900 mt-2"></h2>
+    </div>
+
+    <div class="p-6 bg-white rounded-xl shadow border-t-4 border-gray-500 text-center">
+        <p class="text-gray-500 text-sm font-semibold">SUGGESTIONS</p>
+        <h2 id="suggestCount" class="text-4xl font-bold text-gray-900 mt-2"></h2>
+    </div>
+
+</div>
+
+<!-- CV RANKING -->
+<div id="rankingBox" class="mt-12 hidden">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">📊 CV Analysis Breakdown</h2>
+    
+    <div class="grid grid-cols-2 gap-6">
+        <!-- Searchability -->
+        <div class="p-6 bg-white rounded-xl shadow">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <p class="text-gray-500 text-sm font-semibold">Searchability</p>
+                    <p class="text-xs text-gray-400 mt-1">Keywords & ATS Visibility</p>
+                </div>
+                <p id="searchabilityScore" class="text-3xl font-bold text-purple-600">0</p>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+                <div id="searchabilityBar" class="bg-purple-500 h-3 rounded-full transition-all duration-500"></div>
+            </div>
+        </div>
+
+        <!-- Hard Skills -->
+        <div class="p-6 bg-white rounded-xl shadow">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <p class="text-gray-500 text-sm font-semibold">Hard Skills</p>
+                    <p class="text-xs text-gray-400 mt-1">Technical Requirements</p>
+                </div>
+                <p id="hardSkillsScore" class="text-3xl font-bold text-blue-600">0</p>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+                <div id="hardSkillsBar" class="bg-blue-500 h-3 rounded-full transition-all duration-500"></div>
+            </div>
+        </div>
+
+        <!-- Soft Skills -->
+        <div class="p-6 bg-white rounded-xl shadow">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <p class="text-gray-500 text-sm font-semibold">Soft Skills</p>
+                    <p class="text-xs text-gray-400 mt-1">Interpersonal & Leadership</p>
+                </div>
+                <p id="softSkillsScore" class="text-3xl font-bold text-green-600">0</p>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+                <div id="softSkillsBar" class="bg-green-500 h-3 rounded-full transition-all duration-500"></div>
+            </div>
+        </div>
+
+        <!-- Formatting -->
+        <div class="p-6 bg-white rounded-xl shadow">
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <p class="text-gray-500 text-sm font-semibold">Formatting</p>
+                    <p class="text-xs text-gray-400 mt-1">Structure & Readability</p>
+                </div>
+                <p id="formattingScore" class="text-3xl font-bold text-orange-600">0</p>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+                <div id="formattingBar" class="bg-orange-500 h-3 rounded-full transition-all duration-500"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SUMMARY -->
+<div id="summaryBox" class="mt-8 hidden">
+
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">Executive Summary</h2>
+
+    <div class="bg-gray-50 p-6 rounded-xl border-l-4 border-green-500">
+        <p id="summaryText" class="text-gray-700 leading-relaxed"></p>
+    </div>
+
+</div>
+
+<!-- SUGGESTIONS -->
+<div id="suggestionsBox" class="mt-8 hidden">
+
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">📋 Improvement Suggestions</h2>
+    <p class="text-gray-600 text-sm mb-6" id="suggestCount"></p>
+
+    <div id="suggestionsList" class="space-y-3"></div>
+
+</div>
+
+<!-- STRENGTHS -->
+<div id="strengthsBox" class="mt-8 hidden">
+
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">⭐ Your Strengths</h2>
+
+    <div id="strengthsList" class="space-y-3"></div>
+
+</div>
+
+<!-- MISSING KEYWORDS -->
+<div id="keywordsBox" class="mt-8 hidden">
+
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">🔑 Missing Keywords</h2>
+
+    <div id="keywordsList" class="flex flex-wrap gap-2"></div>
+
+</div>
+
+<!-- POINTS TO ADD TO CV -->
+<div id="pointsBox" class="mt-8 hidden">
+
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">✨ Ready to Add - CV Bullet Points</h2>
+    <p class="text-gray-600 text-sm mb-6">Copy and add these bullet points to your CV to better match this job description</p>
+
+    <div id="pointsList" class="space-y-3"></div>
+
+</div>
+
+<script>
+// Drag and Drop functionality
+const uploadZone = document.getElementById('uploadZone');
+const fileInput = document.getElementById('cv');
+const fileNameDisplay = document.getElementById('fileName');
+
+// Handle click on upload zone
+uploadZone.addEventListener('click', (e) => {
+    e.stopPropagation();
+    fileInput.click();
+});
+
+// Handle file selection from file picker
+fileInput.addEventListener('change', (e) => {
+    if (e.target.files.length > 0) {
+        updateFileName();
+    }
+});
+
+uploadZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    uploadZone.classList.add('drag-over');
+});
+
+uploadZone.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    uploadZone.classList.remove('drag-over');
+});
+
+uploadZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    uploadZone.classList.remove('drag-over');
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        fileInput.files = files;
+        updateFileName();
+    }
+});
+
+function updateFileName() {
+    const file = fileInput.files[0];
+    if (file) {
+        fileNameDisplay.textContent = `✓ ${file.name}`;
+        fileNameDisplay.className = 'text-gray-600 text-sm font-medium mt-2 text-green-600';
+    } else {
+        fileNameDisplay.textContent = '';
+    }
+}
+
+async function analyzeCV() {
+    const file = document.getElementById("cv").files[0];
+    const jd = document.getElementById("job_desc").value;
+
+    // Validation
+    if (!file) {
+        alert('Please upload a CV/Resume file');
+        return;
+    }
+
+    if (!jd.trim()) {
+        alert('Please paste a job description');
+        return;
+    }
+
+    // Show loader
+    showLoader();
+
+    try {
+        const formData = new FormData();
+        formData.append("cv", file);
+        formData.append("job_description", jd);
+
+        const res = await fetch("/cv-scanner", {
+            method: "POST",
+            body: formData
+        });
+
+        if (!res.ok) {
+            throw new Error(`API Error: ${res.status} ${res.statusText}`);
+        }
+
+        const data = await res.json();
+        console.log("Analysis Result:", data);
+
+        // Validate response has required fields
+        if (!data || typeof data !== 'object') {
+            throw new Error('Invalid response format');
+        }
+
+        // Show metrics
+        document.getElementById("metrics").classList.remove("hidden");
+
+        const atsScore = data.ats_score || 0;
+        const matchScore = data.match_score || 0;
+
+        document.getElementById("atsScore").innerText = atsScore;
+        document.getElementById("matchScore").innerText = matchScore;
+        document.getElementById("missingCount").innerText = (data.missing_keywords?.length || 0);
+        document.getElementById("suggestCount").innerText = (data.improvements?.length || 0);
+
+        // ========== CV RANKING SECTION ==========
+        if (data.cv_ranking) {
+            document.getElementById("rankingBox").classList.remove("hidden");
+            
+            const searchability = data.cv_ranking.searchability || 0;
+            const hardSkills = data.cv_ranking.hard_skills || 0;
+            const softSkills = data.cv_ranking.soft_skills || 0;
+            const formatting = data.cv_ranking.formatting || 0;
+            
+            document.getElementById("searchabilityScore").innerText = searchability;
+            document.getElementById("hardSkillsScore").innerText = hardSkills;
+            document.getElementById("softSkillsScore").innerText = softSkills;
+            document.getElementById("formattingScore").innerText = formatting;
+            
+            document.getElementById("searchabilityBar").style.width = searchability + "%";
+            document.getElementById("hardSkillsBar").style.width = hardSkills + "%";
+            document.getElementById("softSkillsBar").style.width = softSkills + "%";
+            document.getElementById("formattingBar").style.width = formatting + "%";
+        } else {
+            document.getElementById("rankingBox").classList.add("hidden");
+        }
+
+        // Summary
+        document.getElementById("summaryBox").classList.remove("hidden");
+        document.getElementById("summaryText").innerText = data.summary || 'No summary available';
+
+        // ========== IMPROVEMENT SUGGESTIONS ==========
+        const suggestionsList = document.getElementById("suggestionsList");
+        suggestionsList.innerHTML = "";
+
+        if (data.improvements && Array.isArray(data.improvements) && data.improvements.length > 0) {
+            document.getElementById("suggestCount").innerText = data.improvements.length;
+            data.improvements.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'p-4 bg-white rounded-lg border-l-4 border-orange-500 shadow-sm hover:shadow-md transition-shadow';
+                card.innerHTML = `
+                    <div class="flex gap-3">
+                        <div class="text-orange-600 font-bold text-lg flex-shrink-0 w-6">💡</div>
+                        <div class="flex-1">
+                            <p class="text-gray-700 font-medium">${item}</p>
+                        </div>
+                    </div>
+                `;
+                suggestionsList.appendChild(card);
+            });
+            document.getElementById("suggestionsBox").classList.remove("hidden");
+        } else {
+            document.getElementById("suggestionsBox").classList.add("hidden");
+        }
+
+        // ========== STRENGTHS ==========
+        const strengthsList = document.getElementById("strengthsList");
+        strengthsList.innerHTML = "";
+
+        if (data.strengths && Array.isArray(data.strengths) && data.strengths.length > 0) {
+            data.strengths.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'p-4 bg-white rounded-lg border-l-4 border-green-500 shadow-sm hover:shadow-md transition-shadow';
+                card.innerHTML = `
+                    <div class="flex gap-3">
+                        <div class="text-green-600 font-bold text-lg flex-shrink-0 w-6">✓</div>
+                        <div class="flex-1">
+                            <p class="text-gray-700 font-medium">${item}</p>
+                        </div>
+                    </div>
+                `;
+                strengthsList.appendChild(card);
+            });
+            document.getElementById("strengthsBox").classList.remove("hidden");
+        } else {
+            document.getElementById("strengthsBox").classList.add("hidden");
+        }
+
+        // ========== MISSING KEYWORDS ==========
+        const keywordsList = document.getElementById("keywordsList");
+        keywordsList.innerHTML = "";
+
+        if (data.missing_keywords && Array.isArray(data.missing_keywords) && data.missing_keywords.length > 0) {
+            data.missing_keywords.forEach(keyword => {
+                const badge = document.createElement('span');
+                badge.className = 'bg-red-100 text-red-700 px-3 py-2 rounded-full text-sm font-medium hover:bg-red-200 transition-colors cursor-default';
+                badge.textContent = keyword;
+                keywordsList.appendChild(badge);
+            });
+            document.getElementById("keywordsBox").classList.remove("hidden");
+        } else {
+            document.getElementById("keywordsBox").classList.add("hidden");
+        }
+
+        // ========== POINTS TO ADD TO CV ==========
+        const pointsList = document.getElementById("pointsList");
+        pointsList.innerHTML = "";
+
+        if (data.cv_points && Array.isArray(data.cv_points) && data.cv_points.length > 0) {
+            data.cv_points.forEach((point, index) => {
+                const card = document.createElement('div');
+                const colors = ['blue', 'purple', 'indigo', 'violet'];
+                const color = colors[index % colors.length];
+                
+                card.className = `p-4 bg-white rounded-lg border-l-4 border-${color}-500 shadow-sm hover:shadow-md transition-shadow`;
+                card.innerHTML = `
+                    <div class="flex gap-3">
+                        <div class="text-${color}-600 font-bold text-lg flex-shrink-0">•</div>
+                        <div class="flex-1">
+                            <p class="text-gray-700 font-medium leading-relaxed">${point}</p>
+                        </div>
+                        <button onclick="copyToClipboard('${point.replace(/'/g, "\\'")}', this)" class="ml-2 px-2 py-1 text-xs bg-${color}-100 text-${color}-600 rounded hover:bg-${color}-200 transition-colors" title="Copy to clipboard">Copy</button>
+                    </div>
+                `;
+                pointsList.appendChild(card);
+            });
+            document.getElementById("pointsBox").classList.remove("hidden");
+        } else {
+            document.getElementById("pointsBox").classList.add("hidden");
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert(`Error analyzing CV: ${error.message}`);
+        // Clear previous results
+        document.getElementById("metrics").classList.add("hidden");
+        document.getElementById("rankingBox").classList.add("hidden");
+        document.getElementById("summaryBox").classList.add("hidden");
+        document.getElementById("suggestionsBox").classList.add("hidden");
+        document.getElementById("strengthsBox").classList.add("hidden");
+        document.getElementById("keywordsBox").classList.add("hidden");
+        document.getElementById("pointsBox").classList.add("hidden");
+    } finally {
+        // Hide loader
+        hideLoader();
+    }
+}
+
+function showLoader() {
+    let loader = document.getElementById('cvLoader');
+    if (!loader) {
+        loader = document.createElement('div');
+        loader.id = 'cvLoader';
+        loader.className = 'loader-container';
+        loader.innerHTML = `
+            <div class="loader-backdrop">
+                <div class="loader-content">
+                    <div class="spinner"></div>
+                    <p class="loader-text">Analyzing your resume...</p>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(loader);
+    }
+    loader.style.display = 'flex';
+}
+
+function hideLoader() {
+    const loader = document.getElementById('cvLoader');
+    if (loader) {
+        loader.style.display = 'none';
+    }
+}
+
+function copyToClipboard(text, button) {
+    const decodedText = text.replace(/\\'/g, "'");
+    navigator.clipboard.writeText(decodedText).then(() => {
+        const originalText = button.innerText;
+        button.innerText = 'Copied!';
+        button.disabled = true;
+        setTimeout(() => {
+            button.innerText = originalText;
+            button.disabled = false;
+        }, 2000);
+    }).catch(() => {
+        alert('Failed to copy to clipboard');
+    });
+}
+</script>
+
+</body>
+</html>

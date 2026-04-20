@@ -1,0 +1,258 @@
+/* -------------------------
+   GLOBAL FONT + BASE
+------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(180deg, #f5f3ff 0%, #ffffff 50%);
+    color: #111827;
+}
+.main-section, .body-section {
+    border-radius: 20px;
+    border: 1px solid #e5e7eb;
+    padding: 20px 0;
+}
+/* -------------------------
+   SIDEBAR
+------------------------- */
+.sidebar {
+    /* background: #f3f4f6; */
+    padding: 28px;
+    border-radius: 20px;
+    border: 1px solid #e5e7eb;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.filter-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+    margin-top: 18px;
+}
+
+.filter-select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    margin-top: 6px;
+    background: white;
+    height: 40px;
+    font-size: 12px;
+}
+
+.filter-section {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 10px;
+}
+/* -------------------------
+   SLIDER
+------------------------- */
+input[type="range"] {
+    accent-color: #7c3aed;
+}
+
+/* -------------------------
+   HEADER
+------------------------- */
+.hero-title {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.hero-title span {
+    color: #7c3aed;
+}
+
+.hero-subtitle {
+    color: #6b7280;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+/* -------------------------
+   SEARCH BAR
+------------------------- */
+.search-container {
+    display: flex;
+    background: white;
+    border-radius: 14px;
+    margin-top: 24px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.search-input {
+    display: flex;
+    align-items: center;
+    padding: 14px;
+    flex: 1;
+    border-right: 1px solid #eee;
+    font-size: 13px;
+}
+
+.search-input input {
+    border: none;
+    outline: none;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.search-btn {
+    background: linear-gradient(to right, #7c3aed, #6366f1);
+    color: white;
+    padding: 0 24px;
+    font-weight: 600;
+}
+
+/* -------------------------
+   TABLE
+------------------------- */
+.table-container {
+    margin-top: 24px;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+table {
+    width: 100%;
+}
+
+thead {
+    background: #f9fafb;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+th, td {
+    padding: 14px;
+}
+
+tr {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+
+}
+
+tr:hover {
+    background: #fafafa;
+}
+
+/* -------------------------
+   COMPANY LOGO
+------------------------- */
+.company-logo {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+
+/* -------------------------
+   BADGES
+------------------------- */
+.source-badge {
+    background: #dcfce7;
+    color: #166534;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+.score-badge {
+    background: #ede9fe;
+    color: #6d28d9;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+/* -------------------------
+   ACTION LINK
+------------------------- */
+.action-link {
+    color: #7c3aed;
+    font-weight: 500;
+}
+.cursor-pointer {
+    cursor: pointer;
+    font-size: 14px !important;
+    display: flex;
+}
+.cursor-pointer svg{
+    height: 18px;
+}
+
+/* -------------------------
+   LOADER
+------------------------- */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loader-backdrop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.loader-content {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.spinner {
+    border: 4px solid #e5e7eb;
+    border-top: 4px solid #7c3aed;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-text {
+    font-size: 16px;
+    color: #374151;
+    font-weight: 500;
+    margin: 0;
+}
+tbody tr {
+    font-size: 13px;
+    font-weight: 200;
+}
+#jobCount {
+    font-weight: 700;
+    padding-left: 20px;
+}
+table svg {
+    display: inline-block;
+}

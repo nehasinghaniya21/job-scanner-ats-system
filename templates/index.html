@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AI Job Finder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+
+<body class="font-sans">
+
+<!-- ================= HEADER (FULL WIDTH) ================= -->
+<div class="w-full px-12 py-10">
+
+    <h1 class="hero-title">
+        Find your <span>new job</span> today
+    </h1>
+
+    <p class="hero-subtitle">
+        Thousands of jobs in tech, AI, and engineering are waiting for you.
+    </p>
+
+    <!-- SEARCH BAR -->
+    <div class="search-container mt-6">
+
+        <div class="search-input">
+            <i data-lucide="search" class="text-gray-400"></i>
+            <input id="query" placeholder="What position are you looking for ?" />
+        </div>
+
+        <div class="search-input">
+            <i data-lucide="map-pin" class="text-gray-400"></i>
+            <input id="location" placeholder="Location" />
+        </div>
+
+        <button onclick="searchJobs()" class="search-btn">
+            Search Jobs
+        </button>
+
+    </div>
+</div>
+
+<!-- ================= MAIN CONTENT ================= -->
+<div class="flex px-12 gap-8 main-section">
+
+    <!-- ===== LEFT FILTER (30%) ===== -->
+    <div class="w-[20%] sidebar">
+
+        <div class="flex justify-between items-center mb-6 filter-section">
+            <h2 class="flex items-center gap-2">
+                <i data-lucide="filter"></i> Filters
+            </h2>
+            <span class="text-purple-600 text-sm cursor-pointer"><i data-lucide="timer-reset"></i>Reset</span>
+        </div>
+
+        <div class="filter-label">Date Posted</div>
+        <select class="filter-select filter-date">
+            <option value="">Any time</option>
+        </select>
+
+        <div class="filter-label">Location</div>
+        <select class="filter-select filter-location">
+            <option value="">All Locations</option>
+        </select>
+
+        <div class="filter-label">Minimum Score</div>
+        <input type="range" class="filter-score" min="0" max="100" value="0">
+
+    </div>
+
+    <!-- ===== RIGHT JOB TABLE (70%) ===== -->
+    <div class="w-[80%] body-section">
+
+        <!-- HEADER ACTION -->
+        <div class="flex justify-between items-center mb-4">
+            <p id="jobCount" class="text-gray-500"></p>
+
+            <button onclick="downloadExcel()"
+                id="downloadBtn"
+                class="hidden flex items-center gap-2 border px-4 py-2 rounded-lg text-purple-600">
+                <i data-lucide="download"></i> Download Excel
+            </button>
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-container">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Job</th>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>Company</th>
+                        <th>Source</th>
+                        <th>Score</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="jobTable"></tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+lucide.createIcons();
+</script>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
